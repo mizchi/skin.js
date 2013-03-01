@@ -2,20 +2,25 @@
 
 Skinny is simple and primitive DOM Wrapper, focusing on DOM updating under high FPS environment.
 
-This library is concept driven for MINIMAL TEMPLATE, not SERVER SIDE LIKE ONE BIG TEMPLATE.
-
 Code is too small but it will give you idiomatic style.
 
+## CONCEPT
+
+NO MORE BIG TEMPLATE on client, like on server. It is too slow.
+
+I want to divide template and use high responsive HTMLElement cache.
 
 ## Skinny gives you...
 
 - Simple Template
 - High Perforamance DOM Access via HTMLElement cache
 
-
 ## Example
 
+
 ```html
+<script src='skinny.js'></script>
+
 <div id='goblin'></div>
 <script type="text/template" id='status_template'>
 <div class='monster'>
