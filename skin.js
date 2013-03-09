@@ -11,16 +11,16 @@
     }
 
     ValueObject.prototype.set = function(value) {
-      return this.el.innerText = value;
+      return this.el.innerText = this._hook(value);
     };
 
     return ValueObject;
 
   })();
 
-  root.Skinny = (function() {
+  root.Skin = (function() {
 
-    function Skinny(el, html) {
+    function Skin(el, html) {
       var name, vo, _i, _len, _ref;
       this.el = el;
       if (html == null) {
@@ -42,14 +42,13 @@
         name = el.getAttribute('data-value');
         vo = new ValueObject(el);
         if (this.valueMap[name] == null) {
-          this.valueMap[name] = [vo];
-        } else {
-          this.valueMap[name].push(vo);
+          this.valueMap[name] = [];
         }
+        this.valueMap[name].push(vo);
       }
     }
 
-    Skinny.prototype.set = function(key, val) {
+    Skin.prototype.set = function(key, val) {
       var vo, _i, _len, _ref, _ref1, _results;
       if (arguments[0] instanceof Object) {
         _ref = arguments[0];
@@ -68,7 +67,7 @@
       return _results;
     };
 
-    return Skinny;
+    return Skin;
 
   })();
 

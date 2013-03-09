@@ -37,8 +37,8 @@ window.onload = function(){
   var html = document.querySelector('#status_template').innerText;
   var goblin_skin = new Skinny(root, html);
   goblin_skin.set({
-    name: 'goblin'
-    hp: 100
+    name: 'goblin',
+    hp: 100,
     mp: 20
   });
 }

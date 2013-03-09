@@ -10,18 +10,17 @@ class ValueObject
 #   new Skinny document.createElement('div')
 #   new Skinny '#user'
 #   new Skinny document.querySelector('#monster'), document.querySelector('#monster_template').innerText
-#  class MySkin extends Skinny
-root.Skinny = class
+#   class MySkin extends Skinny
+class root.Skinny
   constructor: (@el, html = null) ->
     # initialize inner element
     unless @el instanceof HTMLElement
-      div = document.querySelector arguments[0]
-      throw 'element not found' unless div
+      @el = document.querySelector arguments[0]
+      throw 'element not found' unless @el
     # when given html, use it.
     if html? then @el.innerHTML = html
 
     @valueMap = {} # key, [vo...]
-    console.log this
     for el in @el.querySelectorAll '[data-value]'
       name = el.getAttribute 'data-value'
       vo = new ValueObject el
