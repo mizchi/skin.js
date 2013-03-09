@@ -1,8 +1,8 @@
 {
-  "name": "skinny.js",
-  "version": "0.0.0",
-  "description": "ERROR: No README.md file found!",
-  "main": "skinny.js",
+  "name": "skin.js",
+  "version": "0.0.1",
+  "description": "thin dom wrapper",
+  "main": "skin.js",
   "repository": "",
   "author": "mizchi",
   "license": "MIT"
