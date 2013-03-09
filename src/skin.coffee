@@ -34,7 +34,7 @@ class Skin
 
   inject: (key, fn) ->
     for vo in @get(key)
-      f(vo.el)
+      fn(vo.el)
 
 # simple dom access class
 class Skin.ValueObject

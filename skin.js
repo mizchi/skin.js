@@ -61,7 +61,7 @@
       _results = [];
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         vo = _ref[_i];
-        _results.push(f(vo.el));
+        _results.push(fn(vo.el));
       }
       return _results;
     };
