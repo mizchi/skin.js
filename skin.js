@@ -4,11 +4,14 @@
 
   Skin = (function() {
 
-    function Skin(el, html) {
+    function Skin(el, html, target) {
       var name, vo, _i, _len, _ref;
       this.el = el;
       if (html == null) {
         html = null;
+      }
+      if (target == null) {
+        target = 'value';
       }
       if (!(this.el instanceof HTMLElement)) {
         this.el = document.querySelector(arguments[0]);
@@ -19,11 +22,13 @@
       if (html != null) {
         this.el.innerHTML = html;
       }
+      this.target = "data-" + target;
+      this.targetWithBracket = "[" + this.target + "]";
       this.valueMap = {};
-      _ref = this.el.querySelectorAll('[data-value]');
+      _ref = this.el.querySelectorAll(this.targetWithBracket);
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         el = _ref[_i];
-        name = el.getAttribute('data-value');
+        name = el.getAttribute(this.target);
         vo = new Skin.ValueObject(el);
         if (this.valueMap[name] == null) {
           this.valueMap[name] = [];

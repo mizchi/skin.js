@@ -6,7 +6,7 @@
 #   class MySkin extends Skin
 
 class Skin
-  constructor: (@el, html = null) ->
+  constructor: (@el, html = null, target='value') ->
     # initialize inner element
     unless @el instanceof HTMLElement
       @el = document.querySelector arguments[0]
@@ -14,10 +14,12 @@ class Skin
     # when given html, use it.
     if html? then @el.innerHTML = html
 
+    @target = "data-#{target}"
+    @targetWithBracket = "[#{@target}]"
     @valueMap = {} # key, [vo...]
 
-    for el in @el.querySelectorAll '[data-value]'
-      name = el.getAttribute 'data-value'
+    for el in @el.querySelectorAll @targetWithBracket
+      name = el.getAttribute @target
       vo = new Skin.ValueObject el
       unless @valueMap[name]? then @valueMap[name] = []
       @valueMap[name].push vo
