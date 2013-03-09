@@ -27,8 +27,14 @@ class Skin
       for key, val of arguments[0]
         @set key, val
       return
-    for vo in @valueMap[key]
+    for vo in @get(key)
       vo.set val
+
+  get: (key)-> @valueMap[key]
+
+  inject: (key, fn) ->
+    for vo in @get(key)
+      f(vo.el)
 
 # simple dom access class
 class Skin.ValueObject

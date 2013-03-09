@@ -42,11 +42,26 @@
         }
         return;
       }
-      _ref1 = this.valueMap[key];
+      _ref1 = this.get(key);
       _results = [];
       for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
         vo = _ref1[_i];
         _results.push(vo.set(val));
+      }
+      return _results;
+    };
+
+    Skin.prototype.get = function(key) {
+      return this.valueMap[key];
+    };
+
+    Skin.prototype.inject = function(key, fn) {
+      var vo, _i, _len, _ref, _results;
+      _ref = this.get(key);
+      _results = [];
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        vo = _ref[_i];
+        _results.push(f(vo.el));
       }
       return _results;
     };
