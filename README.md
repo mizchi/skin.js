@@ -36,10 +36,15 @@ window.onload = function(){
   var root = document.querySelector('#goblin');
   var html = document.querySelector('#status_template').innerText;
   var goblin_skin = new Skin(root, html);
+  //set
   goblin_skin.set({
     name: 'goblin',
     hp: 100,
     mp: 20
+  });
+  //inject
+  goblin_skin.inject('mp', function(el){
+    el.innerHTML = 30;
   });
 }
 ```
