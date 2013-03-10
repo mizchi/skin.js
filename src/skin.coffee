@@ -16,15 +16,15 @@ class Skin
       opt = {}
 
     @target = if opt.target? then opt.target else 'value'
-    @default = if opt.default? then opt.default else {}
-      
+    @defaults = if opt.defaults? then opt.defaults else {}
+
     # initialize inner element
     unless @el instanceof HTMLElement
       @el = document.querySelector arguments[0]
       throw 'element not found' unless @el
     # when given tmpl, use it.
     if @tmpl? then @el.innerHTML = @tmpl
-    
+
     @target = "data-#{@target}"
     @targetWithBracket = "[#{@target}]"
     @valueMap = {} # key, [vo...]
@@ -32,17 +32,16 @@ class Skin
     fields = @el.querySelectorAll @targetWithBracket
     if not fields? or fields.length is 0
       throw 'there is not field'
-      
+
     for el in fields
       name = el.getAttribute @target
       vo = new Skin.ValueObject el
       unless @valueMap[name]? then @valueMap[name] = []
       @valueMap[name].push vo
 
-    # if default value is set
-    if @default?
-      this.set @default
-      
+    # if defaults value is set
+    if @defaults?
+      this.set @defaults
 
   set: (key, val)->
     if arguments[0] instanceof Object

@@ -16,7 +16,7 @@ describe('Skin', function(){
     });
     it('create instance with default value', function(){
       var mizchi = {name: 'mizchi', hp: 3, mp: 1000};
-      var skin = new Skin(goblin, {default: mizchi});
+      var skin = new Skin(goblin, {defaults: mizchi});
       var vals = goblin.querySelectorAll('[data-value]');
 
       for(var i = 0, l = vals.length; i < l; i++){
@@ -55,7 +55,7 @@ describe('Skin', function(){
     });
     it('create instance with default value', function(){
       var mizchi = {name: 'mizchi', hp: 3, mp: 1000};
-      var skin = new Skin(goblin, {default: mizchi});
+      var skin = new Skin(goblin, {defaults: mizchi});
       var vals = goblin.querySelectorAll('[data-value]');
 
       for(var i = 0, l = vals.length; i < l; i++){
@@ -84,7 +84,7 @@ describe('Skin', function(){
     });
     it('create instance with default value', function(){
       var mizchi = {name: 'mizchi', hp: 3, mp: 1000};
-      var skin = new Skin(goblin, {default: mizchi, target: 'skin-value'});
+      var skin = new Skin(goblin, {defaults: mizchi, target: 'skin-value'});
       var vals = goblin.querySelectorAll('[data-skin-value]');
 
       for(var i = 0, l = vals.length; i < l; i++){
@@ -129,7 +129,7 @@ describe('Skin', function(){
     });
     it('create instance with default value', function(){
       var mizchi = {name: 'mizchi', hp: 3, mp: 1000};
-      var skin = new Skin(goblin, {default: mizchi, target: 'skin-value'});
+      var skin = new Skin(goblin, {defaults: mizchi, target: 'skin-value'});
       var vals = goblin.querySelectorAll('[data-skin-value]');
 
       for(var i = 0, l = vals.length; i < l; i++){
