@@ -4,36 +4,46 @@
 
   Skin = (function() {
 
-    function Skin(el, html, target) {
-      var name, vo, _i, _len, _ref;
+    function Skin(el, opt) {
+      var fields, name, vo, _i, _len;
       this.el = el;
-      if (html == null) {
-        html = null;
+      if (typeof opt === 'string') {
+        this.tmpl = opt;
+        opt = {};
+      } else if (opt != null) {
+        this.tmpl = opt.tmpl != null ? opt.tmpl : null;
+      } else {
+        opt = {};
       }
-      if (target == null) {
-        target = 'value';
-      }
+      this.target = opt.target != null ? opt.target : 'value';
+      this["default"] = opt["default"] != null ? opt["default"] : {};
       if (!(this.el instanceof HTMLElement)) {
         this.el = document.querySelector(arguments[0]);
         if (!this.el) {
           throw 'element not found';
         }
       }
-      if (html != null) {
-        this.el.innerHTML = html;
+      if (this.tmpl != null) {
+        this.el.innerHTML = this.tmpl;
       }
-      this.target = "data-" + target;
+      this.target = "data-" + this.target;
       this.targetWithBracket = "[" + this.target + "]";
       this.valueMap = {};
-      _ref = this.el.querySelectorAll(this.targetWithBracket);
-      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-        el = _ref[_i];
+      fields = this.el.querySelectorAll(this.targetWithBracket);
+      if (!(fields != null) || fields.length === 0) {
+        throw 'there is not field';
+      }
+      for (_i = 0, _len = fields.length; _i < _len; _i++) {
+        el = fields[_i];
         name = el.getAttribute(this.target);
         vo = new Skin.ValueObject(el);
         if (this.valueMap[name] == null) {
           this.valueMap[name] = [];
         }
         this.valueMap[name].push(vo);
+      }
+      if (this["default"] != null) {
+        this.set(this["default"]);
       }
     }
 

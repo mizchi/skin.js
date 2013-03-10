@@ -6,23 +6,43 @@
 #   class MySkin extends Skin
 
 class Skin
-  constructor: (@el, html = null, target='value') ->
+  constructor: (@el, opt) ->
+    if typeof opt is 'string'
+      @tmpl = opt
+      opt = {}
+    else if opt?
+      @tmpl = if opt.tmpl? then opt.tmpl else null
+    else
+      opt = {}
+
+    @target = if opt.target? then opt.target else 'value'
+    @default = if opt.default? then opt.default else {}
+      
     # initialize inner element
     unless @el instanceof HTMLElement
       @el = document.querySelector arguments[0]
       throw 'element not found' unless @el
-    # when given html, use it.
-    if html? then @el.innerHTML = html
-
-    @target = "data-#{target}"
+    # when given tmpl, use it.
+    if @tmpl? then @el.innerHTML = @tmpl
+    
+    @target = "data-#{@target}"
     @targetWithBracket = "[#{@target}]"
     @valueMap = {} # key, [vo...]
 
-    for el in @el.querySelectorAll @targetWithBracket
+    fields = @el.querySelectorAll @targetWithBracket
+    if not fields? or fields.length is 0
+      throw 'there is not field'
+      
+    for el in fields
       name = el.getAttribute @target
       vo = new Skin.ValueObject el
       unless @valueMap[name]? then @valueMap[name] = []
       @valueMap[name].push vo
+
+    # if default value is set
+    if @default?
+      this.set @default
+      
 
   set: (key, val)->
     if arguments[0] instanceof Object
