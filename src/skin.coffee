@@ -2,10 +2,13 @@
 # examples
 #   new Skin document.createElement('div')
 #   new Skin '#user'
-#   new Skin document.querySelector('#monster'), document.querySelector('#monster_template').innerText
+#   new Skin document.querySelector('#monster'), document.querySelector('#monster_template').innerHTML
 #   class MySkin extends Skin
 
-class Skin
+class Decorative
+  remove: -> @el.parentNode?.removeChild @el
+
+class Skin extends Decorative
   constructor: (@el, opt) ->
     if typeof opt is 'string'
       @tmpl = opt
@@ -57,10 +60,23 @@ class Skin
     for vo in @get(key)
       fn(vo.el)
 
+  destroy: ->
+    keys = (key for key of @valueMap)
+    for key in keys
+      # remove then self
+      vo.remove() for vo in @valueMap[key]
+      # remove dom references
+      @valueMap[key].length = 0
+      delete @valueMap[key]
+    @remove()
+
 # simple dom access class
-class Skin.ValueObject
+class Skin.ValueObject extends Decorative
   constructor: (@el) ->
-  set: (value) -> @el.innerText = value
+  set: (value) -> @el.innerHTML = value
+
+Skin.addHelper = (name, func)->
+  Decorative.prototype[name] = func
 
 if typeof define == 'function' and typeof define.amd is 'object' and define.amd
   define -> Skin
